@@ -12,46 +12,44 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AdventureWorks.Controllers
 {
-    public class ProductsController : Controller
+    public class CustomersController : Controller
     {
         private readonly AdventureWorksContext _context;
 
-        public ProductsController(AdventureWorksContext context)
+        public CustomersController(AdventureWorksContext context)
         {
             _context = context;
         }
 
-        // GET: Products
+        // GET: Customers
         public async Task<IActionResult> Index()
         {
-            ProductsDAO products = new ProductsDAO();
-            return View(products.GetAllProducts());
-              //return _context.Products != null ? 
-              //            View(await _context.Products.ToListAsync()) :
-              //            Problem("Entity set 'AdventureWorksContext.Products'  is null.");
+            CustomerDAO customers = new CustomerDAO();
+            return View(customers.GetAllCustomers());
+            //return _context.Customer != null ? 
+            //              View(await _context.Customer.ToListAsync()) :
+            //              Problem("Entity set 'AdventureWorksContext.Customer'  is null.");
         }
 
-        // GET: Products/Details/5
-       
+        // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            ProductsDAO products = new ProductsDAO();
-            return View(products.GetProduct((int)id));
-            //if (id == null || _context.Products == null)
+            CustomerDAO customer = new CustomerDAO();
+            return View(customer.GetCustomer((int)id));
+            //if (id == null || _context.Customer == null)
             //{
             //    return NotFound();
             //}
 
-            //var products = await _context.Products
+            //var customer = await _context.Customer
             //    .FirstOrDefaultAsync(m => m.Id == id);
-            //if (products == null)
+            //if (customer == null)
             //{
             //    return NotFound();
             //}
 
-            //return View(products);
+            //return View(customer);
         }
-
         public IActionResult SearchForm()
         {
             return View();
@@ -59,57 +57,57 @@ namespace AdventureWorks.Controllers
 
         public IActionResult SearchResults(string searchTerm)
         {
-            ProductsDAO products = new ProductsDAO();
-            List<Product> productsList = products.SearchProducts(searchTerm);
-            return View("index",productsList);
+            CustomerDAO customer = new CustomerDAO();
+            List<Customer> customersList = customer.SearchCustomers(searchTerm);
+            return View("index", customersList);
         }
 
-        // GET: Products/Create
+        // GET: Customers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Customers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Id,Color,Price,PhotoURL")] Product products)
+        public async Task<IActionResult> Create([Bind("Id,Name,EmailAddress,PhoneNumber,Company")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(products);
+                _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(products);
+            return View(customer);
         }
 
-        // GET: Products/Edit/5
+        // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context.Customer == null)
             {
                 return NotFound();
             }
 
-            var products = await _context.Products.FindAsync(id);
-            if (products == null)
+            var customer = await _context.Customer.FindAsync(id);
+            if (customer == null)
             {
                 return NotFound();
             }
-            return View(products);
+            return View(customer);
         }
 
-        // POST: Products/Edit/5
+        // POST: Customers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Id,Color,Price,PhotoURL")] Product products)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,EmailAddress,PhoneNumber,Company")] Customer customer)
         {
-            if (id != products.Id)
+            if (id != customer.Id)
             {
                 return NotFound();
             }
@@ -118,12 +116,12 @@ namespace AdventureWorks.Controllers
             {
                 try
                 {
-                    _context.Update(products);
+                    _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductsExists(products.Id))
+                    if (!CustomerExists(customer.Id))
                     {
                         return NotFound();
                     }
@@ -134,49 +132,49 @@ namespace AdventureWorks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(products);
+            return View(customer);
         }
 
-        // GET: Products/Delete/5
+        // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context.Customer == null)
             {
                 return NotFound();
             }
 
-            var products = await _context.Products
+            var customer = await _context.Customer
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (products == null)
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(products);
+            return View(customer);
         }
 
-        // POST: Products/Delete/5
+        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Products == null)
+            if (_context.Customer == null)
             {
-                return Problem("Entity set 'AdventureWorksContext.Products'  is null.");
+                return Problem("Entity set 'AdventureWorksContext.Customer'  is null.");
             }
-            var products = await _context.Products.FindAsync(id);
-            if (products != null)
+            var customer = await _context.Customer.FindAsync(id);
+            if (customer != null)
             {
-                _context.Products.Remove(products);
+                _context.Customer.Remove(customer);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductsExists(int id)
+        private bool CustomerExists(int id)
         {
-          return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Customer?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

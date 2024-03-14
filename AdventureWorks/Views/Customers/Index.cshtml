@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AdventureWorks.Models.Product>
+﻿@model IEnumerable<AdventureWorks.Models.Customer>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,14 +16,14 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Color)
+                @Html.DisplayNameFor(model => model.EmailAddress)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.PhoneNumber)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.PhotoURL)
-            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Company)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -34,14 +34,14 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Color)
+                @Html.DisplayFor(modelItem => item.EmailAddress)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.PhotoURL)
-            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Company)
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

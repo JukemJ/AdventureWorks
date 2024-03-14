@@ -1,21 +1,23 @@
 ﻿using AdventureWorks.Models;
 using Microsoft.Data.SqlClient;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Net.Mail;
 
 namespace AdventureWorks.Services
 {
-    public class ProductsDAO : IProductDataService
+    public class CustomerDAO : ICustomerDataService
     {
         string connectionString = @"Data Source=JUKEM-PC;Initial Catalog=AdventureWorksLT2022;Integrated Security=True;Connect Timeout=30;Encrypt=False;
                                     Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-        public int Delete(Product product)
+        public int Delete(Customer customer)
         {
             throw new NotImplementedException();
         }
 
-        public List<Product> GetAllProducts()
+        public List<Customer> GetAllCustomers()
         {
-            List<Product> products = new List<Product>();
-            string sqlStatement = "SELECT * FROM SalesLT.Product";
+            List<Customer> customers = new List<Customer>();
+            string sqlStatement = "SELECT * FROM SalesLT.Customer";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(sqlStatement, connection);
@@ -25,89 +27,93 @@ namespace AdventureWorks.Services
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        products.Add(new Product { Id = (int)reader[0], Name = (string)reader[1], 
-                            Color = (string)reader[3], Price = (decimal)reader[5], PhotoURL = (string)reader[14] });
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.Write("GetAllProductsError: ");
-                    Console.WriteLine(e.Message);
-                }
-            }
-            return products;
-        }
-
-        public Product GetProduct(int id)
-        {
-            Product product = new Product();
-            string sqlStatement = "SELECT * FROM SalesLT.Product s WHERE s.ProductID = " + id;
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(sqlStatement, connection);
-                try
-                {
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        product.Id = (int)reader[0];
-                        product.Name = (string)reader[1];
-                        product.Color = (string)reader[3];
-                        product.Price = (decimal)reader[5];
-                        product.PhotoURL = (string)reader[14];
-                    }
-                    
-                }
-                catch (Exception e)
-                {
-
-                    Console.WriteLine(e.Message);
-                }
-            }
-            //Console.WriteLine(product.Id);
-            return product;
-        }
-
-        public int Insert(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Product> SearchProducts(string searchTerm)
-        {
-            List<Product> products = new List<Product>();
-            string sqlStatement = "SELECT * FROM SalesLT.Product s WHERE s.Name LIKE @Name";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(sqlStatement, connection);
-                command.Parameters.AddWithValue("@Name","%" + searchTerm + "%");
-                try
-                {
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        products.Add(new Product
+                        customers.Add(new Customer
                         {
                             Id = (int)reader[0],
-                            Name = (string)reader[1],
-                            Color = (string)reader[3],
-                            Price = (decimal)reader[5],
-                            PhotoURL = (string)reader[14]
+                            Name = (string)reader[3] + (string)reader[5],
+                            Company = (string)reader[7],
+                            EmailAddress = (string)reader[9],
+                            PhoneNumber = (string)reader[10]            
                         });
                     }
                 }
                 catch (Exception e)
                 {
-                    Console.Write("SearchProductsError: ");
+                    Console.Write("GetAllCustomersError: ");
                     Console.WriteLine(e.Message);
                 }
             }
-            return products;
+            return customers;
         }
 
-        public int Update(Product product)
+        public Customer GetCustomer(int id)
+        {
+            Customer customer = new Customer();
+            string sqlStatement = "SELECT * FROM SalesLT.Customer c WHERE c.CustomerID = " +id;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(sqlStatement, connection);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        customer.Id = (int)reader[0];
+                        customer.Name = (string)reader[3] + " " +(string)reader[5];
+                        customer.Company = (string)reader[7];
+                        customer.EmailAddress = (string)reader[9];
+                        customer.PhoneNumber = (string)reader[10];
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("GetCustomerError: ");
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return customer;
+        }
+
+        public int Insert(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Customer> SearchCustomers(string searchTerm)
+        {
+            List<Customer> customers = new List<Customer>();
+            string sqlStatement = "SELECT * FROM SalesLT.Customer c WHERE c.FirstName LIKE @Name OR c.LastName LIKE @Name";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(sqlStatement, connection);
+                command.Parameters.AddWithValue("@Name", "%" + searchTerm + "%");
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        customers.Add(new Customer
+                        {
+                            Id = (int)reader[0],
+                            Name = (string)reader[3] + (string)reader[5],
+                            Company = (string)reader[7],
+                            EmailAddress = (string)reader[9],
+                            PhoneNumber = (string)reader[10]
+                        });
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("SearchCustomersError: ");
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return customers;
+        }
+
+        public int Update(Customer customer)
         {
             throw new NotImplementedException();
         }

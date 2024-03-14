@@ -15,5 +15,7 @@ namespace AdventureWorks.Data
         }
 
         public DbSet<AdventureWorks.Models.Product> Products { get; set; } = default!;
+
+        public DbSet<AdventureWorks.Models.Customer> Customer { get; set; } = default!;
     }
 }
