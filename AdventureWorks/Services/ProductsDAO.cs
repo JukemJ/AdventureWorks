@@ -5,8 +5,8 @@ namespace AdventureWorks.Services
 {
     public class ProductsDAO : IProductDataService
     {
-        string connectionString = @"Data Source=JUKEM-PC;Initial Catalog=AdventureWorksLT2022;Integrated Security=True;Connect Timeout=30;Encrypt=False;
-                                    Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+        string connectionString = @"Server=tcp:adventureworks-dxn.database.windows.net,1433;Initial Catalog=AdventureWorks;Persist Security Info=False;
+        User ID=CloudSA44fc7231;Password=Corolla860!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         public int Delete(Product product)
         {
             throw new NotImplementedException();
