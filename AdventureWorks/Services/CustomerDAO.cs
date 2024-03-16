@@ -30,7 +30,7 @@ namespace AdventureWorks.Services
                         customers.Add(new Customer
                         {
                             Id = (int)reader[0],
-                            Name = (string)reader[3] + (string)reader[5],
+                            Name = (string)reader[3] + " " + (string)reader[5],
                             Company = (string)reader[7],
                             EmailAddress = (string)reader[9],
                             PhoneNumber = (string)reader[10]            
@@ -97,7 +97,7 @@ namespace AdventureWorks.Services
                         customers.Add(new Customer
                         {
                             Id = (int)reader[0],
-                            Name = (string)reader[3] + (string)reader[5],
+                            Name = (string)reader[3] + " " +(string)reader[5],
                             Company = (string)reader[7],
                             EmailAddress = (string)reader[9],
                             PhoneNumber = (string)reader[10]
