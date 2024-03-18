@@ -5,6 +5,7 @@
 const searchField = document.getElementById("CustomerSearchField")
 const searchButton = document.getElementById("searchButton")
 const resetButton = document.getElementById("resetButton")
+searchField.addEventListener('input', updateCustomerList)
 searchButton.addEventListener('click', updateCustomerList)
 resetButton.addEventListener('click', resetCustomerList)
 const dataRows = document.getElementsByClassName("data-row")
