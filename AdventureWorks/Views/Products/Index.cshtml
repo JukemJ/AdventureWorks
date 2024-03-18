@@ -4,12 +4,42 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Products</h1>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+</p>*@
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model) {
+        
+            <div class="col-3 item-box shadow m-3 rounded">
+                <a asp-action="Details" asp-route-id="@item.Id">
+                <h3>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </h3>
+                </a>
+                @*<p>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </p>*@
+                <h4>
+                    $@Html.DisplayFor(modelItem => item.Price)
+                </h4>
+                    <img src="https://i5.walmartimages.com/seo/Hyper-Bicycles-Men-s-29-Explorer-Dual-Suspension-Mountain-Bike-Red_d885e90f-d5fa-4c8d-b79a-801ed6ae5bb2.38883fa729039ce5aaf1ffd4395718b7.jpeg" class="construction-img" />
+
+            </div>
+         
+        }
+
+    </div>
+
+</div>
+
+
+
+
+
+<!--<table class="table">
     <thead>
         <tr>
             <th>
@@ -50,4 +80,4 @@
         </tr>
 }
     </tbody>
-</table>
+</table>-->

@@ -9,6 +9,6 @@ namespace AdventureWorks.Services
         Customer GetCustomer(int id);
         int Insert(Customer customer);
         int Update(Customer customer);
-        int Delete(Customer customer);
+        //int Delete(int id);
     }
 }

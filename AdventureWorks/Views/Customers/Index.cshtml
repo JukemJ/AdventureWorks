@@ -4,23 +4,26 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Customers</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<input id="CustomerSearchField" placeholder="Search Customers"/>
+<button id="searchButton" class="btn btn-primary">Search</button>
+<button id="resetButton" class="btn btn-primary">Reset</button>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.EmailAddress)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Company)
             </th>
@@ -29,16 +32,16 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr class="data-row">
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.EmailAddress)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Company)
             </td>

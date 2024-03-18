@@ -138,19 +138,23 @@ namespace AdventureWorks.Controllers
         // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Customer == null)
-            {
-                return NotFound();
-            }
+            CustomerDAO customer = new CustomerDAO();
+            List<Customer> customersList = customer.DeleteCustomer((int)id);
+            return View("index", customersList);
 
-            var customer = await _context.Customer
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
+            //if (id == null || _context.Customer == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View(customer);
+            //var customer = await _context.Customer
+            //    .FirstOrDefaultAsync(m => m.Id == id);
+            //if (customer == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return View(customer);
         }
 
         // POST: Customers/Delete/5

@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.Net.Mail;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace AdventureWorks.Services
 {
@@ -9,9 +10,23 @@ namespace AdventureWorks.Services
     {
         string connectionString = @"Server=tcp:adventureworks-dxn.database.windows.net,1433;Initial Catalog=AdventureWorks;Persist Security Info=False;
         User ID=CloudSA44fc7231;Password=TestPassword!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-        public int Delete(Customer customer)
+        public List<Customer> DeleteCustomer(int id)
         {
-            throw new NotImplementedException();
+            string sqlStatement = "DELETE FROM SalesLT.Customer WHERE CustomerID  = " + id;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(sqlStatement, connection);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return GetAllCustomers();
         }
 
         public List<Customer> GetAllCustomers()
