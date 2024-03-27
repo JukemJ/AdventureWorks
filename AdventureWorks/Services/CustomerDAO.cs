@@ -9,7 +9,7 @@ namespace AdventureWorks.Services
     public class CustomerDAO : ICustomerDataService
     {
         string connectionString = @"Server=tcp:adventureworks-dxn.database.windows.net,1433;Initial Catalog=AdventureWorks;Persist Security Info=False;
-        User ID=CloudSA44fc7231;Password=TestPassword!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        User ID=CloudSA44fc7231;Password=TestPassword!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;";
         public List<Customer> DeleteCustomer(int id)
         {
             string sqlStatement = "DELETE FROM SalesLT.Customer WHERE CustomerID  = " + id;
