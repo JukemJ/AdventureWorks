@@ -9,10 +9,10 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<input id="CustomerSearchField" placeholder="Search Customers"/>
-<button id="searchButton" class="btn btn-primary">Search</button>
-<button id="resetButton" class="btn btn-primary">Reset</button>
-<table class="table">
+@*<input id="CustomerSearchField" placeholder="Search Customers"/>*@
+@*<button id="searchButton" class="btn btn-primary">Search</button>
+<button id="resetButton" class="btn btn-primary">Reset</button>*@
+<table class="table" id="customersTable">
     <thead>
         <tr>
             <th>
@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Company)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
@@ -54,3 +54,5 @@
 }
     </tbody>
 </table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>

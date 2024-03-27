@@ -2,12 +2,14 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-const searchField = document.getElementById("CustomerSearchField")
-const searchButton = document.getElementById("searchButton")
-const resetButton = document.getElementById("resetButton")
-searchButton.addEventListener('click', updateCustomerList)
-resetButton.addEventListener('click', resetCustomerList)
-const dataRows = document.getElementsByClassName("data-row")
+//const searchField = document.getElementById("CustomerSearchField")
+//const searchButton = document.getElementById("searchButton")
+//const resetButton = document.getElementById("resetButton")
+//searchButton.addEventListener('click', updateCustomerList)
+//resetButton.addEventListener('click', resetCustomerList)
+//const dataRows = document.getElementsByClassName("data-row")
+//const customersTable = document.getElementById("customersTable")
+let table = new DataTable("#customersTable")
 
 function updateCustomerList() {
     for (let row of dataRows) {
@@ -26,3 +28,4 @@ function resetCustomerList() {
     for (let row of dataRows) row.style.display = "table-row"
 
 }
+
